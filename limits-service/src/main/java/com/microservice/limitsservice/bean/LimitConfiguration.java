@@ -1,4 +1,4 @@
-package com.microservice.bean;
+package com.microservice.limitsservice.bean;
 
 public class LimitConfiguration {
 

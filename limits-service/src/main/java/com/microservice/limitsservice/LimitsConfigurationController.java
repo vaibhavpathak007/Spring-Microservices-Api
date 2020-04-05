@@ -1,10 +1,10 @@
-package com.microservice;
+package com.microservice.limitsservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.microservice.bean.LimitConfiguration;
+import com.microservice.limitsservice.bean.LimitConfiguration;
 
 @RestController
 public class LimitsConfigurationController {
