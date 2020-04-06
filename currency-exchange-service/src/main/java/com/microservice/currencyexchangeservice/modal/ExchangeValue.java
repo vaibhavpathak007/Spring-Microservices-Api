@@ -2,10 +2,19 @@ package com.microservice.currencyexchangeservice.modal;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+
+@Entity
 public class ExchangeValue {
 	
+	@Id
 	private int id;
+	@Column(name = "currency_from")
 	private String from;
+	@Column(name = "currency_to")
 	private String to;
 	private BigDecimal conversionMultiple;
 	private int port;
