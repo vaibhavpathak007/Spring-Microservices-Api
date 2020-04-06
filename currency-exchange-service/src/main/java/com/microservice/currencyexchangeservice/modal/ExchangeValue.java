@@ -8,9 +8,18 @@ public class ExchangeValue {
 	private String from;
 	private String to;
 	private BigDecimal conversionMultiple;
+	private int port;
 	
 	public ExchangeValue() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public ExchangeValue(int id, String from, String to, BigDecimal conversionMultiple) {
+		super();
+		this.id = id;
+		this.from = from;
+		this.to = to;
+		this.conversionMultiple = conversionMultiple;
 	}
 	
 	public int getId() {
@@ -45,17 +54,12 @@ public class ExchangeValue {
 		this.conversionMultiple = conversionMultiple;
 	}
 
-	public ExchangeValue(int id, String from, String to, BigDecimal conversionMultiple) {
-		super();
-		this.id = id;
-		this.from = from;
-		this.to = to;
-		this.conversionMultiple = conversionMultiple;
+	public int getPort() {
+		return port;
 	}
-	
-	
-	
-	
-	
+
+	public void setPort(int port) {
+		this.port = port;
+	}
 
 }
