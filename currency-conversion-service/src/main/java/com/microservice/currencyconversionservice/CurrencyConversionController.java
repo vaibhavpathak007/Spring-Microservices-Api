@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.microservice.currencyconversionservice.modal.CurrencyConversionBean;
+import com.microservice.currencyconversionservice.service.CurrencyExchangeServiceProxy;
 
 @RestController
 public class CurrencyConversionController {
 	
 	@Autowired
-	RestTemplate templet;
+	private RestTemplate templet;
+	
+	@Autowired
+	private CurrencyExchangeServiceProxy proxy;
 
 	@GetMapping("/currency-converter/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConversionBean convertCurrency(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
@@ -26,6 +30,16 @@ public class CurrencyConversionController {
 		uriVariables.put("to", to);
 		
 		CurrencyConversionBean currencyConversionBean = templet.getForObject("http://localhost:8000/currency-exchange/from/{from}/to/{to}", CurrencyConversionBean.class, uriVariables);
+		currencyConversionBean.setQuantity(quantity);
+		currencyConversionBean.setTotalCalculateAmount(currencyConversionBean.getQuantity().multiply(currencyConversionBean.getConversionMultiple()));
+		
+		return currencyConversionBean;
+	}
+	
+	@GetMapping("/currency-converter-feign/from/{from}/to/{to}/quantity/{quantity}")
+	public CurrencyConversionBean convertCurrencyFeign(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
+		
+		CurrencyConversionBean currencyConversionBean = proxy.retriveExchangeValue(from, to);
 		currencyConversionBean.setQuantity(quantity);
 		currencyConversionBean.setTotalCalculateAmount(currencyConversionBean.getQuantity().multiply(currencyConversionBean.getConversionMultiple()));
 		
