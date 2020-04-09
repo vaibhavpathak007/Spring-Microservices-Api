@@ -7,6 +7,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import brave.sampler.Sampler;
+
 @SpringBootApplication
 @EnableFeignClients("com.microservice.currencyconversionservice")
 @EnableDiscoveryClient
@@ -15,10 +17,15 @@ public class CurrencyConversionServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CurrencyConversionServiceApplication.class, args);
 	}
-	
+
 	@Bean
 	RestTemplate gerRestTemplate() {
 		return new RestTemplate();
 	}
 
+	// Tell What Request needs to intercept
+	@Bean
+	public Sampler defaultSampler() {
+		return Sampler.ALWAYS_SAMPLE;
+	}
 }
